@@ -15,8 +15,8 @@ function App() {
 
   return (
     <div data-test="component-app" className="App">
-      <h1>The count is {count}</h1>
-      <button onClick={() => handleClick()}>Increment Counter</button>
+      <h1 data-test="counter-display">The count is {count}</h1>
+      <button data-test="increment-button" onClick={() => handleClick()}>Increment Counter</button>
       <button onClick={() => handleReset()}>Reset</button>
     </div>
   );
