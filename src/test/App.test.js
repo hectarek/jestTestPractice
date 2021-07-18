@@ -33,9 +33,27 @@ test('render count is displayed', () => {
 })
 
 test('counter display starts at 0', () => {
-
+  const wrapper = setup();
+  const count = findByTestAttr(wrapper, "count").text();
+  expect(count).toBe("0");
 })
 
 test('clicking on the button increments the counter', () => {
-  
+  const wrapper = setup();
+  // find button
+  const button = findByTestAttr(wrapper, "increment-button");
+  // click button
+  button.simulate("click");
+  // find display, test if number increases
+  const count = findByTestAttr(wrapper, "count").text();
+  expect(count).toBe("1");
 })
+
+test('Clicking the decrement button on 0 will throw error', () => {
+  const wrapper = setup();
+  const button = findByTestAttr(wrapper, "decrement-button");
+  button.simulate("click");
+  const count = findByTestAttr(wrapper, 'counter-error').text();
+  expect(count).toBe("Sorry, test can't go below zero");
+})
+

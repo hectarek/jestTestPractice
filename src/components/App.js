@@ -3,20 +3,36 @@ import { useState } from 'react'
 
 function App() {
  
-  let [count, addCount] = useState(0)
+  const [count, setCount] = useState(0)
+  const [style, setStyle] = useState({
+    color: "red",
+    visibility: "hidden"
+  })
 
-  const handleClick = () => {
-    addCount(count + 1);
+  const handleDecrement = () => {
+    if (count == 0) {
+      setStyle({ color: "red", visibility: "visible" });
+    } else {
+      setCount(count - 1);
+      setStyle({ color: "red", visibility: "hidden" });
+    }
+  };
+
+  const handleIncrement = () => {
+    setCount(count + 1);
+    setStyle({ color: "red", visibility: "hidden" });
   };
 
   const handleReset = () => {
-    addCount(0);
+    setCount(0);
   }
 
   return (
     <div data-test="component-app" className="App">
-      <h1 data-test="counter-display">The count is {count}</h1>
-      <button data-test="increment-button" onClick={() => handleClick()}>Increment Counter</button>
+      <h1 data-test="counter-display">The count is <span data-test="count">{count}</span></h1>
+      <p data-test="counter-error" style={style}>Sorry, test can't go below zero</p>
+      <button data-test="decrement-button" onClick={() => handleDecrement()}>Decrement Counter</button>
+      <button data-test="increment-button" onClick={() => handleIncrement()}>Increment Counter</button>
       <button onClick={() => handleReset()}>Reset</button>
     </div>
   );
